@@ -1,0 +1,5 @@
+# import Country from './Country.graphql'
+
+type Query {
+  countries: [Country]
+}
