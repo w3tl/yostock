@@ -1,5 +1,0 @@
-type Country {
-  id: String
-  name: String
-  number: Int
-}

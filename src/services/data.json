@@ -1,0 +1,79 @@
+{
+  "currencies": {
+    "array": [{
+      "id": "RUB",
+      "symbol": "₽",
+      "name": "Russian ruble",
+      "number": 643
+    }, {
+      "id": "EUR",
+      "symbol": "€",
+      "name": "Euro",
+      "number": 978
+    }, {
+      "id": "USD",
+      "symbol": "$",
+      "name": "US Dollar",
+      "number": 840
+    }],
+    "keys": {
+      "RUB": {
+        "id": "RUB",
+        "symbol": "₽",
+        "name": "Russian ruble",
+        "number": 643
+      },
+      "EUR": {
+        "id": "EUR",
+        "symbol": "€",
+        "name": "Euro",
+        "number": 978
+      },
+      "USD": {
+        "id": "USD",
+        "symbol": "$",
+        "name": "US Dollar",
+        "number": 840
+      }
+    }
+  },
+  "countries": {
+    "array": [{
+      "id": "RUS",
+      "name": "Russian Federation",
+      "number": 643
+    }, {
+      "id": "USA",
+      "name": "United States of America",
+      "number": 840
+    }],
+    "keys": {
+      "RUS": {
+        "id": "RUS",
+        "name": "Russian Federation",
+        "number": 643
+      },
+      "USA": {
+        "id": "USA",
+        "name": "United States of America",
+        "number": 840
+      }
+    }
+  },
+  "exchanges": {
+    "array": [{
+      "id": "MISX",
+      "name": "Moscow Exchange",
+      "url": "https://www.moex.comhttps://www.moex.com",
+      "countryId": "RUS"
+    }],
+    "keys": {
+      "MISX": {
+        "id": "MISX",
+        "name": "Moscow Exchange",
+        "url": "https://www.moex.comhttps://www.moex.com",
+        "countryId": "RUS"
+      }
+    }
+  }
+}
