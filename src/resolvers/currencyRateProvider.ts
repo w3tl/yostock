@@ -7,12 +7,11 @@ import { CurrencyRateProviderPair } from "../entity/currencyRateProviderPair";
 import { Country } from "../entity/country";
 import { Currency } from "../entity/currency";
 import { ISOService } from "../services/iso";
-import { CurrencyRate } from "../entity/currencyRate";
-import { CurrencyRateUpdateInput, CurrencyRateUpdatePayload } from "./types/currencyRate.input";
+import { CurrencyRate, CurrencyRateUpdateInput, CurrencyRateUpdatePayload } from "../entity/currencyRate";
 import { CurrencyServiceFactory } from "../services/currencyService";
 
 @Service()
-@Resolver(of => CurrencyRateProvider)
+@Resolver(() => CurrencyRateProvider)
 export class CurrencyRateProviderResolver {
   constructor(
     @Inject() private readonly isoService: ISOService,
@@ -21,12 +20,12 @@ export class CurrencyRateProviderResolver {
     @InjectRepository(CurrencyRateProviderPair) private readonly currencyRateProviderPairRepository: Repository<CurrencyRateProviderPair>,
   ) {}
 
-  @Query(returns => [CurrencyRateProvider])
+  @Query(() => [CurrencyRateProvider])
   currencyRateProviders(): Promise<CurrencyRateProvider[]> {
     return this.currencyRateProviderRepository.find();
   }
 
-  @Query(returns => CurrencyRateProvider, { nullable: true })
+  @Query(() => CurrencyRateProvider, { nullable: true })
   currencyRateProvider(@Arg("providerId") providerId: string): Promise<CurrencyRateProvider> {
     return this.currencyRateProviderRepository.findOne(providerId);
   }
@@ -46,18 +45,5 @@ export class CurrencyRateProviderResolver {
   @FieldResolver()
   pairs(@Root() currencyRateProvider: CurrencyRateProvider): Promise<CurrencyRateProviderPair[]> {
     return this.currencyRateProviderPairRepository.find({ providerId: currencyRateProvider.id });
-  }
-
-  @Mutation(returns => CurrencyRateUpdatePayload)
-  async updateCurrencyRates(
-    @Arg("input") requestInput: CurrencyRateUpdateInput,
-  ): Promise<CurrencyRateUpdatePayload> {
-    const provider = await this.currencyRateProviderRepository.findOne(requestInput.providerId);
-    const currencyService = CurrencyServiceFactory.createCurrencyService(provider);
-    const rates = await currencyService.updateRates(requestInput.fromDate, requestInput.toDate);
-
-    return {
-      loaded: rates.length,
-    };
   }
 }

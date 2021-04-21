@@ -1,14 +1,9 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server";
-import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
-import { createConnection, useContainer } from "typeorm";
-import { CurrencyResolver } from "./resolvers/currency";
-import { ExchangeResolver } from "./resolvers/exchange";
-import { CountryResolver } from "./resolvers/country";
-import { CurrencyRateResolver } from "./resolvers/currencyRate";
-import { CurrencyRateProviderResolver } from "./resolvers/currencyRateProvider";
-import { CurrencyRateProviderPairResolver } from "./resolvers/currencyRateProviderPair";
+import { useContainer } from "typeorm";
+import { createSchema } from "./resolvers";
+import { connection } from "./connection";
 
 const PORT = process.env.PORT || 4000;
 
@@ -16,13 +11,9 @@ useContainer(Container);
 
 const startServer = async (): Promise<void> => {
   try {
-    const connection = await createConnection();
-    await connection.runMigrations();
+    await connection();
 
-    const schema = await buildSchema({
-      resolvers: [CurrencyResolver, ExchangeResolver, CountryResolver, CurrencyRateResolver, CurrencyRateProviderResolver, CurrencyRateProviderPairResolver],
-      container: Container,
-    });
+    const schema = await createSchema();
 
     const server: ApolloServer = new ApolloServer({
       schema,

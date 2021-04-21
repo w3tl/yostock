@@ -21,6 +21,29 @@ type CBRFCurrenciesType = {
   Valuta: CBRFCurrenciesValueType;
 };
 
+type CBRFRateItemAttributesType = {
+  Date: string,
+  Id: string,
+};
+
+type CBRFRateItemType = {
+  attributes: CBRFRateItemAttributesType,
+  Nominal: number,
+  Value: string,
+};
+
+type CBRFRateAttributesType = {
+  ID: string,
+  DateRange1: string,
+  DateRange2: string,
+  name: string,
+};
+
+type CBRFRateType = {
+  attributes: CBRFRateAttributesType,
+  Record: CBRFRateItemType | CBRFRateItemType[],
+};
+
 export class CBRFCurrencyAPI implements ICurrencyAPI {
   providerId: string;
   url: string;
@@ -60,7 +83,8 @@ export class CBRFCurrencyAPI implements ICurrencyAPI {
   }
 
   async getRates(fromDate: Date, toDate: Date, pairs: CurrencyRateProviderPair[]): Promise<CurrencyRate[]> {
-    const currencies = await this.getCurrencies();    
+    const currencies = await this.getCurrencies();
+      
     let rates: CurrencyRate[] = [];
     for (const pair of pairs) {
       const response = await this.client.get<string>(`${this.url}/${this.ratesDynamicPath}`, {
@@ -69,16 +93,22 @@ export class CBRFCurrencyAPI implements ICurrencyAPI {
         "VAL_NM_RQ": currencies[pair.fromCurrencyId],
       });
 
-      const responseObj = parser.parse(response.result, this.xmlOptions);
-      const records = Array.isArray(responseObj.ValCurs.Record) ? responseObj.ValCurs.Record : [responseObj.ValCurs.Record];
-      
-      rates = [...rates, ...records.map(record => ({
-        from: pair.fromCurrencyId,
-        to: pair.toCurrencyId,
-        validFrom: record["attributes"].Date.split(".").reverse().join("-"), //new Date(record["attributes"].Date.split(".").reverse().join("/")),
-        rate: parseFloat(record.Value.replace(",", ".")),
-        providerId: this.providerId,
-      }))];
+      const values: CBRFRateType = parser.parse(response.result, this.xmlOptions).ValCurs;      
+      const records: CBRFRateItemType[] = Array.isArray(values.Record) ? values.Record : [values.Record];
+
+      rates = [...rates, ...records
+        .filter(rate => rate.attributes.Id === currencies[pair.fromCurrencyId])
+        .map(rate => {
+          const currencyRate = new CurrencyRate();
+          currencyRate.from = pair.fromCurrencyId;
+          currencyRate.to = pair.toCurrencyId;
+          currencyRate.validFrom = rate.attributes.Date.split(".").reverse().join("-");
+          //new Date(record["attributes"].Date.split(".").reverse().join("/")),
+          currencyRate.rate = parseFloat(rate.Value.replace(",", "."));
+          currencyRate.providerId = this.providerId;
+          
+          return currencyRate;
+        })];
     };    
 
     return rates;
