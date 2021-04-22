@@ -1,5 +1,5 @@
-import { ObjectType, Field, ID } from "type-graphql";
-import { Entity, ManyToOne, PrimaryColumn, Column, RelationId, Index } from "typeorm";
+import { ObjectType, Field } from "type-graphql";
+import { Entity, ManyToOne, PrimaryColumn, RelationId, Index } from "typeorm";
 import { Currency } from "./currency";
 import { CurrencyRateProvider } from "./currencyRateProvider";
 
@@ -13,17 +13,17 @@ export class CurrencyRateProviderPair {
   @PrimaryColumn({ type: "varchar", length: 3 })
   toCurrencyId: string;
 
-  @Field(type => Currency)
+  @Field(() => Currency)
   fromCurrency: Currency;
 
-  @Field(type => Currency)
+  @Field(() => Currency)
   toCurrency: Currency;
 
   @PrimaryColumn({ type: "varchar", length: 10 })
   @RelationId((pair: CurrencyRateProviderPair) => pair.provider)
   providerId: string;
 
-  @Field(type => CurrencyRateProvider)
-  @ManyToOne(type => CurrencyRateProvider)
+  @Field(() => CurrencyRateProvider)
+  @ManyToOne(() => CurrencyRateProvider)
   provider: CurrencyRateProvider;
 }

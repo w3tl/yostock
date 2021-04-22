@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`HTTP client should send parameters 1`] = `
-Array [
-  Array [
-    "http://example.com/?param1=value1&param2=value2",
-  ],
-]
-`;

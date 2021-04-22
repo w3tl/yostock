@@ -12,7 +12,7 @@ export class Exchange {
   @Field()
   url: string;
 
-  @Field(type => Country)
+  @Field(() => Country)
   country: Country;
 
   countryId: string;

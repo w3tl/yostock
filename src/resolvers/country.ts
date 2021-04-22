@@ -4,17 +4,17 @@ import { Country } from "../entity/country";
 import { ISOService } from "../services/iso";
 
 @Service()
-@Resolver(of => Country)
+@Resolver(() => Country)
 export class CountryResolver {
   @Inject()
   private readonly isoService: ISOService;
 
-  @Query(returns => [Country])
+  @Query(() => [Country])
   countries(): Country[] {
     return this.isoService.getAllCountries();
   }
 
-  @Query(returns => Country, { nullable: true })
+  @Query(() => Country, { nullable: true })
   country(@Arg("id") id: string): Country | undefined {
     return this.isoService.getOneCountry(id);
   }

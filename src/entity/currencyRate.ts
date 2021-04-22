@@ -22,7 +22,7 @@ export class CurrencyRate {
   @Field()
   rate: number;
   
-  @Field(type => CurrencyRateProvider)
+  @Field(() => CurrencyRateProvider)
   @ManyToOne(() => CurrencyRateProvider)
   provider: CurrencyRateProvider;
 
@@ -36,10 +36,10 @@ export class CurrencyRateUpdateInput {
   @Field()
   providerId: string;
 
-  @Field(type => GraphQLISODateTime)
+  @Field(() => GraphQLISODateTime)
   fromDate: Date;
 
-  @Field(type => GraphQLISODateTime)
+  @Field(() => GraphQLISODateTime)
   toDate: Date;
 }
 
@@ -55,7 +55,7 @@ export class CurrencyRateInput {
   fromCurrency: string;
   @Field({ nullable: true })
   toCurrency: string;
-  @Field(type => GraphQLISODateTime)
+  @Field(() => GraphQLISODateTime)
   date: Date;
   @Field()
   providerId: string;
@@ -67,9 +67,9 @@ export class CurrencyRatesInput {
   fromCurrency: string;
   @Field({ nullable: true })
   toCurrency: string;
-  @Field(type => GraphQLISODateTime)
+  @Field(() => GraphQLISODateTime)
   fromDate: Date;
-  @Field(type => GraphQLISODateTime)
+  @Field(() => GraphQLISODateTime)
   toDate: Date;
   @Field()
   providerId: string;

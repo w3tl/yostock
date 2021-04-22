@@ -5,7 +5,7 @@ import { Currency } from "../entity/currency";
 import { ISOService } from "../services/iso";
 
 @Service()
-@Resolver(of => CurrencyRateProviderPair)
+@Resolver(() => CurrencyRateProviderPair)
 export class CurrencyRateProviderPairResolver {
   constructor(
     @Inject() private readonly isoService: ISOService,

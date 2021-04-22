@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, FieldResolver, Root, Mutation } from "type-graphql";
+import { Resolver, Query, Arg, FieldResolver, Root } from "type-graphql";
 import { Inject, Service } from "typedi";
 import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
@@ -7,8 +7,7 @@ import { CurrencyRateProviderPair } from "../entity/currencyRateProviderPair";
 import { Country } from "../entity/country";
 import { Currency } from "../entity/currency";
 import { ISOService } from "../services/iso";
-import { CurrencyRate, CurrencyRateUpdateInput, CurrencyRateUpdatePayload } from "../entity/currencyRate";
-import { CurrencyServiceFactory } from "../services/currencyService";
+import { CurrencyRate } from "../entity/currencyRate";
 
 @Service()
 @Resolver(() => CurrencyRateProvider)

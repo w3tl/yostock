@@ -5,17 +5,17 @@ import { Country } from "../entity/country";
 import { ISOService } from "../services/iso";
 
 @Service()
-@Resolver(of => Exchange)
+@Resolver(() => Exchange)
 export class ExchangeResolver {
   @Inject()
   private readonly isoService: ISOService;
 
-  @Query(returns => [Exchange])
+  @Query(() => [Exchange])
   exchanges(): Exchange[] {
     return this.isoService.getAllExchanges();
   }
 
-  @Query(returns => Exchange, { nullable: true })
+  @Query(() => Exchange, { nullable: true })
   exchange(@Arg("id") id: string): Exchange | undefined {
     return this.isoService.getOneExchange(id);
   }
