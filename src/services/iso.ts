@@ -12,7 +12,7 @@ export class ISOService {
   }
 
   getOneCurrency(id: string): Currency {
-    return currencies.keys[id];
+    return currencies.array.find(currency => currency.id === id)!;
   }
 
   getAllCountries(): Country[] {
@@ -20,7 +20,7 @@ export class ISOService {
   }
 
   getOneCountry(id: string): Country {
-    return countries.keys[id];
+    return countries.array.find(country => country.id === id)!
   }
 
   getAllExchanges(): Exchange[] {
@@ -29,9 +29,10 @@ export class ISOService {
       countryId,
       country: this.getOneCountry(countryId),
     }));
+    
   }
 
   getOneExchange(id: string): Exchange {
-    return exchanges.keys[id];
+    return exchanges.array.find(exchange => exchange.id === id)!;
   }
 }

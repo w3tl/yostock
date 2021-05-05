@@ -22,20 +22,20 @@ export class CurrencyRateProvider {
 
   @Column({ type: "varchar" })
   @Field()
-  serviceUrl: string;
+  serviceUrl!: string;
 
   @Column({ type: "boolean" })
   @Field()
-  enabled: boolean;
+  enabled!: boolean;
 
   @Column({ type: "varchar", length: 3 })
-  currencyId: string;
+  currencyId!: string;
 
   @Field(() => Currency)
   currency: Currency;
 
   @Column({ type: "varchar" })
-  countryId: string;
+  countryId!: string;
 
   @Field(() => Country)
   country: Country;

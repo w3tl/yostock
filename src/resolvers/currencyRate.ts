@@ -28,7 +28,7 @@ export class CurrencyRateResolver {
   @Query(() => CurrencyRate, { nullable: true })
   async currencyRate(
     @Arg("input") pairInput: CurrencyRateInput,
-  ): Promise<CurrencyRate> {
+  ): Promise<CurrencyRate | undefined> {
     return this.currencyRateRepository.findOne({
       providerId: pairInput.providerId,
       from: pairInput.fromCurrency,
@@ -42,7 +42,7 @@ export class CurrencyRateResolver {
   }
 
   @FieldResolver()
-  provider(@Root() currencyRate: CurrencyRate): Promise<CurrencyRateProvider> {
+  provider(@Root() currencyRate: CurrencyRate): Promise<CurrencyRateProvider | undefined> {
     return this.currencyRateProviderRepository.findOne(currencyRate.providerId);
   }
 }

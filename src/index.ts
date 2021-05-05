@@ -22,9 +22,9 @@ const startServer = async (): Promise<void> => {
 
     server.listen({ port: PORT }, () =>
       console.log(`🚀 Server ready on port: ${PORT}`)
-    )
+    );
   } catch (err) {
-    console.log(`❌  Something went wrong: \n ${err}`)
+    console.error(`❌  Something went wrong: \n ${err.stack}`);
   }
 }
 

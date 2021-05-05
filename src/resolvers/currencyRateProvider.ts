@@ -25,7 +25,7 @@ export class CurrencyRateProviderResolver {
   }
 
   @Query(() => CurrencyRateProvider, { nullable: true })
-  currencyRateProvider(@Arg("providerId") providerId: string): Promise<CurrencyRateProvider> {
+  currencyRateProvider(@Arg("providerId") providerId: string): Promise<CurrencyRateProvider | undefined> {
     return this.currencyRateProviderRepository.findOne(providerId);
   }
 
@@ -36,8 +36,6 @@ export class CurrencyRateProviderResolver {
 
   @FieldResolver()
   currency(@Root() currencyRateProvider: CurrencyRateProvider): Currency {
-    console.log(currencyRateProvider.currencyId);
-    
     return this.isoService.getOneCurrency(currencyRateProvider.currencyId);
   }
 

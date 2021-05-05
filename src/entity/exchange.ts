@@ -13,7 +13,7 @@ export class Exchange {
   url: string;
 
   @Field(() => Country)
-  country: Country;
+  country?: Country;
 
   countryId: string;
 }

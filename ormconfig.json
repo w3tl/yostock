@@ -7,11 +7,11 @@
    "synchronize": true,
    "logging": true,
    "dropSchema": true,
-   "entities": ["./src/entity/*.ts"],
-   "migrations": ["./src/migration/*.ts"],
+   "entities": ["./dist/entity/*.ts"],
+   "migrations": ["./dist/migration/*.ts"],
    "cli": {
-      "entitiesDir": "./src/entities",
-      "migrationsDir": "./src/migration"
+      "entitiesDir": "./dist/entities",
+      "migrationsDir": "./dist/migration"
    }
 }, {
    "type": "sqlite",
@@ -19,10 +19,10 @@
    "synchronize": true,
    "logging": true,
    "dropSchema": true,
-   "entities": ["./src/entity/*.ts"],
-   "migrations": ["./src/migration/*.ts"],
+   "entities": ["./dist/entity/*.ts"],
+   "migrations": ["./dist/migration/*.ts"],
    "cli": {
-      "entitiesDir": "./src/entities",
-      "migrationsDir": "./src/migration"
+      "entitiesDir": "./dist/entities",
+      "migrationsDir": "./dist/migration"
    }
 }]
