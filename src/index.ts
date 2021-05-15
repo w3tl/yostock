@@ -3,7 +3,7 @@ import { ApolloServer } from "apollo-server";
 import { Container } from "typedi";
 import { useContainer } from "typeorm";
 import { createSchema } from "./resolvers";
-import { connection } from "./connection";
+import { connection as createConnection } from "./connection";
 
 const PORT = process.env.PORT || 4000;
 
@@ -11,7 +11,7 @@ useContainer(Container);
 
 const startServer = async (): Promise<void> => {
   try {
-    await connection();
+    await createConnection();
 
     const schema = await createSchema();
 

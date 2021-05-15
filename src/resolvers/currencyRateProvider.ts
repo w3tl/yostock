@@ -7,14 +7,12 @@ import { CurrencyRateProviderPair } from "../entity/currencyRateProviderPair";
 import { Country } from "../entity/country";
 import { Currency } from "../entity/currency";
 import { ISOService } from "../services/iso";
-import { CurrencyRate } from "../entity/currencyRate";
 
 @Service()
 @Resolver(() => CurrencyRateProvider)
 export class CurrencyRateProviderResolver {
   constructor(
     @Inject() private readonly isoService: ISOService,
-    @InjectRepository(CurrencyRate) private readonly currencyRateRepository: Repository<CurrencyRate>,
     @InjectRepository(CurrencyRateProvider) private readonly currencyRateProviderRepository: Repository<CurrencyRateProvider>,
     @InjectRepository(CurrencyRateProviderPair) private readonly currencyRateProviderPairRepository: Repository<CurrencyRateProviderPair>,
   ) {}

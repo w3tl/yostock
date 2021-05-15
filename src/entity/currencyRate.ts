@@ -51,25 +51,13 @@ export class CurrencyRateUpdatePayload {
 
 @InputType()
 export class CurrencyRateInput {
-  @Field({ nullable: true })
-  fromCurrency: string;
-  @Field({ nullable: true })
-  toCurrency: string;
-  @Field(() => GraphQLISODateTime)
-  date: Date;
   @Field()
-  providerId: string;
-}
-
-@InputType()
-export class CurrencyRatesInput {
-  @Field({ nullable: true })
   fromCurrency: string;
-  @Field({ nullable: true })
+  @Field()
   toCurrency: string;
   @Field(() => GraphQLISODateTime)
   fromDate: Date;
-  @Field(() => GraphQLISODateTime)
+  @Field(() => GraphQLISODateTime, { nullable: true })
   toDate: Date;
   @Field()
   providerId: string;

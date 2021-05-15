@@ -3,7 +3,7 @@ export const CurrencyRateProviderSeed = [{
   name: "The Central Bank of the Russian Federation",
   url: "https://www.cbr.ru",
   serviceUrl: "http://www.cbr.ru/scripts",
-  enabled: false,
+  enabled: true,
   currencyId: "RUB",
   countryId: "RUS",
 }];

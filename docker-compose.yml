@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: yostock-api
+    restart: always
+    depends_on:
+      - database
+    volumes:
+      - .:/usr/app/
+    ports:
+      - "4000:4000"
+    command: npm run dev
+
+  database:
+    image: postgres
+    container_name: yostock-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "yostock"
+    ports: 
+      - "5432:5432"
+    command: ["postgres", "-c", "log_connections=true"]
+
+  padminer:
+    image: adminer
+    container_name: yostock-dbadmin
+    restart: always
+    ports:
+      - "8080:8080"

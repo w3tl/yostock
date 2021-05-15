@@ -6,8 +6,9 @@ import { ISOService } from "../services/iso";
 @Service()
 @Resolver(() => Currency)
 export class CurrencyResolver {
-  @Inject()
-  private readonly isoService: ISOService;
+  constructor(
+    @Inject() private readonly isoService: ISOService,
+  ) {}
 
   @Query(() => [Currency])
   currencies(): Currency[] {
